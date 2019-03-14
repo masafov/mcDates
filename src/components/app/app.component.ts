@@ -23,8 +23,6 @@ export const AppComponent: angular.IComponentOptions  = {
                     </div>
                 </div>
             </div> 
-
-            <md-button ng-click="ctrl.test2Way()">2Way</md-button>
         </md-content>
     `,
 

@@ -1,7 +1,7 @@
 import moment = require("moment");
 
 export class mcDatesCtrl {
-    
+
     DATE_FORMAT: string = "YYYY-MM-DD";
     from: Date;
     to: Date;
@@ -16,9 +16,7 @@ export class mcDatesCtrl {
                 text: "Вчера",
                 fn: () => {
                     let yesterday = moment(new Date()).add(-1, 'days');
-                    this.dateFrom = this.format(yesterday);
-                    this.dateTo = this.format(yesterday);
-                    this.dateChanged();
+                    this.setOption(yesterday, yesterday);
                 }
             },
             {
@@ -53,9 +51,7 @@ export class mcDatesCtrl {
             {
                 text: "Все",
                 fn: () => {
-                    this.dateFrom = null;
-                    this.dateTo = null;
-                    this.dateChanged();
+                    this.setOption(null, null);
                 }
             }
         ]
@@ -89,11 +85,24 @@ export class mcDatesCtrl {
     }
 
     parse(value): Date {
-        if(!value) {
+        if (!value) {
             return null;
         }
         let date = moment(value);
         return date.isValid() ? date.toDate() : null;
-      }
+    }
+
+    setOption(newFrom, newTo) {
+        if(this.isDifferent(newFrom, newTo)){
+            this.dateFrom = this.format(newFrom);
+            this.dateTo = this.format(newTo);
+            this.dateChanged();
+        }
+    }
+
+    isDifferent(newFrom, newTo): boolean {
+        if(!newFrom && !this.from && !newTo && !this.to) return false;
+        return (!moment(newFrom).isSame(this.from, "day") || !moment(newTo).isSame(this.to, "day"));
+    }
 
 }
