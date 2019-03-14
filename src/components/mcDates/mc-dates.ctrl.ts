@@ -23,9 +23,7 @@ export class mcDatesCtrl {
                 text: "Сегодня",
                 fn: () => {
                     let today = moment(new Date());
-                    this.dateFrom = this.format(today);
-                    this.dateTo = this.format(today);
-                    this.dateChanged();
+                    this.setOption(today, today);
                 }
             },
             {
@@ -33,9 +31,7 @@ export class mcDatesCtrl {
                 fn: () => {
                     let two_weeks = moment(new Date()).add(-14, 'days');
                     let today = moment(new Date());
-                    this.dateFrom = this.format(two_weeks);
-                    this.dateTo = this.format(today);
-                    this.dateChanged();
+                    this.setOption(two_weeks, today);
                 }
             },
             {
@@ -43,9 +39,7 @@ export class mcDatesCtrl {
                 fn: () => {
                     let month = moment(new Date()).add(-30, 'days');
                     let today = moment(new Date());
-                    this.dateFrom = this.format(month);
-                    this.dateTo = this.format(today);
-                    this.dateChanged();
+                    this.setOption(month, today);
                 }
             },
             {
